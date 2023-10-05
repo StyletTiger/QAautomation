@@ -1,8 +1,8 @@
+user = "Sam"
+age = 22
+print(f"{user = } - {age = }")
 
 
 
 
-print("Hello World!")
 
-x = 5
-print(x)
