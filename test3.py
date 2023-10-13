@@ -5,49 +5,42 @@ from selenium import webdriver
 import time
 import math
 
-def calc(x):
-  return str(math.log(abs(12*math.sin(int(x)))))
 
-try:
-    link = "http://suninjuly.github.io/explicit_wait2.html"
-    browser = webdriver.Chrome()
-    browser.get(link)
+class Test():
+    # Создаем список ссылок
+    links = [
+        "https://stepik.org/lesson/236895/step/1",
+        "https://stepik.org/lesson/236896/step/1",
+        "https://stepik.org/lesson/236897/step/1",
+        "https://stepik.org/lesson/236898/step/1",
+        "https://stepik.org/lesson/236899/step/1",
+        "https://stepik.org/lesson/236903/step/1",
+        "https://stepik.org/lesson/236904/step/1",
+        "https://stepik.org/lesson/236905/step/1"
+    ]
+    #@pytest.fixture(scope="function")
+    @pytest.mark.parametrize("link, links")
+    @pytest.mark.smoke
+    def test_3_6_5(browser, link):
+        link = "https://stepik.org/lesson/236895/step/1"
+        browser = webdriver.Chrome()
+        browser.get(link)
 
-    # говорим WebDriver ждать все элементы в течение 5 секунд
-    browser.implicitly_wait(12)
+        browser.implicitly_wait(5)
 
-    # Дождаться, когда цена дома уменьшится до $100 (ожидание нужно установить не меньше 12 секунд)
-    WebDriverWait(browser, 12).until(
-    EC.text_to_be_present_in_element((By.ID, "price"), "$100")   # Условие, которое проверяет, что внутри элемента появился определенный текст.
-        )
+        button = browser.find_element(By.ID, "ember33")
+        button.click()
 
-    # Нажать на кнопку
-    button = browser.find_element(By.CSS_SELECTOR, "button.btn")
-    button.click()
+        input1 = browser.find_element(By.ID, "id_login_email")
+        input1.send_keys("stylettiger3004@gmail.com")
+        input2 = browser.find_element(By.ID, "id_login_password")
+        input2.send_keys("vodwok-bewbe5-wAvzuq")
 
-    # Проскроллить страницу вниз.
-    browser.execute_script("window.scrollBy(0, 100);")
+        button = browser.find_element(By.CSS_SELECTOR, ".sign-form__btn")
+        button.click()
 
-    # Считать значение для переменной x.
-    x_element = browser.find_element(By.CSS_SELECTOR, "#input_value")
-    x = x_element.text
-    y = calc(x)
 
-    # Ввести ответ в текстовое поле.
-    input = browser.find_element(By.CSS_SELECTOR, f"[id='answer']")
-    input.send_keys(y)
-
-    # Отправляем заполненную форму нажав на кнопку
-    button = browser.find_element(By.ID, "solve")
-    button.click()
-
-    # Проверяем, что смогли зарегистрироваться
-    # ждем загрузки страницы
-    time.sleep(1)
-
-finally:
-    # ожидание чтобы визуально оценить результаты прохождения скрипта
-    time.sleep(10)
-    # закрываем браузер после всех манипуляций
-    browser.quit()
-
+        # ожидание чтобы визуально оценить результаты прохождения скрипта
+        time.sleep(5)
+        # закрываем браузер после всех манипуляций
+        browser.quit()
